@@ -22,10 +22,22 @@
       <label for="exampleFormControlTextarea1">Example textarea</label>
     <textarea id="text" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
       <button id="submit">convertir</button>
- 
-      <div id="container">
+      <div class="container-fluid">
+        <div class="row col-12">
+            <div id="container" class="col-6">
       
+            </div>
+            
+        
+          
+          
+          <div id="containerConverted" class="col-5">
+      
+            </div>
+            </div>
+          
       </div>
+      
       
 
        <!-- Optional JavaScript -->
@@ -46,16 +58,25 @@
         console.log(txt);
         $("#container").empty();
             for(i = 0; i < txt.length; i++){
-        $("#container").append("<p>"+ txt[i] +"</p>");
+        $("#container").append("<p class='col'>"+ txt[i] +"</p>");
     }
         
         
-        
+        var compilerPhrases = [];
         
         $("p").click(function(){
             $(this).css("font-weight", "bold");
             $('#alert').css("visibility", "visible");
-        var copyText = $(this).text();
+        var copyText = $(this).text();+
+            
+            
+            compilerPhrases.push(copyText);
+            $("#containerConverted").empty();
+                for(i = 0; i < compilerPhrases.length; i++){
+                    $("#containerConverted").append("<p class='col'>"+ compilerPhrases[i] +"</p>");
+                }
+            
+            
         console.log(copyText);
 		textToClipboard(copyText);
 			function textToClipboard (text) {
