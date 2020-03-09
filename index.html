@@ -53,7 +53,7 @@
 
 <script>
     $('#submit').on("click", function(){
-        var txt= $("#text").val().split( /[\.!\?]+/ );
+        var txt= $("#text").val().split( /[\.,!\?]+/ );
         //txt.split( /[\.!\?]+/ );
         console.log(txt);
         $("#container").empty();
