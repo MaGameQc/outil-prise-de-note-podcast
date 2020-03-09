@@ -53,6 +53,7 @@
         
         
         $("p").click(function(){
+            $(this).css("font-weight", "bold");
             $('#alert').css("visibility", "visible");
         var copyText = $(this).text();
         console.log(copyText);
