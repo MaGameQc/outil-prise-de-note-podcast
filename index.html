@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -15,26 +16,30 @@
   </head>
   <body>
       
-      <div class="alert alert-primary "   style="visibility: hidden;" id="alert">
+      <div class="alert alert-primary w-100"   style="visibility: hidden; position: fixed; top: 1em; z-index: 5;" id="alert">
   Texte copié !
 </div>
       
-      <label for="exampleFormControlTextarea1">Example textarea</label>
+      <label for="exampleFormControlTextarea1">séparateur de phrases et de virgules</label>
     <textarea id="text" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-      <button id="submit">convertir</button>
+      <button id="submit" class="btn btn-primary m-2">convertir</button>
       <div class="container-fluid">
         <div class="row col-12">
-            <div id="container" class="col-6">
+            <div id="container" class="col-md-6 rounded" style="">
       
             </div>
             
         
           
           
-          <div id="containerConverted" class="col-5">
-      
+          <div id="containerConverted" class="col-md-5 rounded" style="background-color: #d4d3d2">
+     
             </div>
+			<div>
+			 <button id="copy" class="btn btn-primary m-2">copier</button>
+			 </div>
             </div>
+			
           
       </div>
       
@@ -52,6 +57,8 @@
 </html>
 
 <script>
+
+
     $('#submit').on("click", function(){
         var txt= $("#text").val().split( /[\.,!\?]+/ );
         //txt.split( /[\.!\?]+/ );
@@ -63,22 +70,42 @@
         
         
         var compilerPhrases = [];
-        
+        ///////////////////////////////////////////////////////
         $("p").click(function(){
+		if ( $(this).css("font-weight") == "bold" || $(this).css("font-weight")  == '700'){
+			/*console.log("fuck");
+			var fuck = compilerPhrases.indexOf($(this).text());
+			compilerPhrases.splice(fuck ,1);
+			console.log(compilerPhrases);*/
+			//console.log(compilerPhrases);
+		}
+		
             $(this).css("font-weight", "bold");
-            $('#alert').css("visibility", "visible");
-        var copyText = $(this).text();+
+            
+        var copyText = $(this).text();
             
             
             compilerPhrases.push(copyText);
             $("#containerConverted").empty();
                 for(i = 0; i < compilerPhrases.length; i++){
-                    $("#containerConverted").append("<p class='col'>"+ compilerPhrases[i] +"</p>");
+                    $("#containerConverted").append("- "+ compilerPhrases[i] +" <br>");
                 }
             
             
-        console.log(copyText);
-		textToClipboard(copyText);
+       
+		
+			
+    });
+	
+		$("#copy").click(function(){
+		$('#alert').css("visibility", "visible");
+		
+		
+		 var brRegex = /<br\s*[\/]?>/gi;
+		
+		var copyTextConverted = $("#containerConverted").html().replace(brRegex, "\r\n");
+			copyTextConverted.replace("<p class='col'>", " ");
+			textToClipboard(copyTextConverted);
 			function textToClipboard (text) {
 				var dummy = document.createElement("textarea");
 				document.body.appendChild(dummy);
@@ -88,8 +115,9 @@
 				document.body.removeChild(dummy);
 				
 				setTimeout(function(){ $('#alert').css("visibility", "hidden"); }, 2000);
-			}
-    });
+				}
+		});
+	
     });
     
     
